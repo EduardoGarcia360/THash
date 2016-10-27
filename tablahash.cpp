@@ -16,7 +16,7 @@ void TablaHash::insertar(int d){
     int indice = funcionHash(d, 13);
     int iteracion=1, primero=indice;
     /*en caso de haber una colision*/
-    while(tabla[indice]!=NULL || tabla[indice]=="#"){
+    while(tabla[indice]!="#" && tabla[indice]!=NULL){
         int colision = dobleDispersion(d, iteracion);
         indice=0;
         indice= primero+colision;
@@ -43,21 +43,30 @@ bool TablaHash::eliminar(int d){
     QString elemento = QString::number(d);
 
     if(tabla[indice] == elemento){
+        /*no hubo colision*/
         tabla[indice]="#";
         llenado -= 1.0;
         elimino=true;
     }else{
+        /*si hubo colision*/
         int iteracion=1, primero=indice;
         while(tabla[indice]!=elemento){
             int colision = dobleDispersion(d, iteracion);
             indice=0;
-            indice= primero + colision;
-            iteracion++;
-            colision=0;
+            indice=primero + colision;
+            if(indice>=13){
+                /*no encontro el numero, y sobrepaso el tamaño maximo*/
+                break;
+            }else{
+                iteracion++;
+                colision=0;
+            }
         }
-        tabla[indice]="#";
-        llenado -= 1.0;
-        elimino=true;
+        if(indice<13){
+            tabla[indice]="#";
+            llenado -= 1.0;
+            elimino=true;
+        }
     }
     return elimino;
 }
