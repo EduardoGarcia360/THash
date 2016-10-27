@@ -1,5 +1,6 @@
 #ifndef TABLAHASH_H
 #define TABLAHASH_H
+#include "QString"
 
 typedef struct TablaHash TablaHash;
 
@@ -9,7 +10,7 @@ struct TablaHash{
     double porcentajeLlenado();
     void insertar(int d);
     void mostrar();
-    bool buscar(int d);
+    QString buscar(int d);
     bool eliminar(int d);
     void modificar(int d, int n);
 };

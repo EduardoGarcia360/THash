@@ -27,13 +27,35 @@ void TablaHash::insertar(int d){
     llenado += 1.0;
 }
 
-bool TablaHash::buscar(int d){
-    bool encontro=false;
-    int indice = funcionHash(d, 13);
-    int iteracion=1, primero=indice;
-    while(tabla[indice]!=NULL){
+QString TablaHash::buscar(int d){
 
+    int indice=funcionHash(d, 13);
+    QString elemento = QString::number(d), retorno="";
+
+    if(tabla[indice] == elemento){
+        /*no hubo colision*/
+        retorno = tabla[indice];
+    }else{
+        /*si hubo colision*/
+        int iteracion=1, primero=indice;
+        while(tabla[indice]!=elemento){
+            int colision = dobleDispersion(d, iteracion);
+            indice=0;
+            indice=primero + colision;
+            if(indice>=13){
+                /*no encontro el numero, y sobrepaso el tamaño maximo*/
+                break;
+            }else{
+                iteracion++;
+                colision=0;
+            }
+        }
+        if(indice<13){
+            retorno = tabla[indice];
+        }
     }
+
+    return retorno;
 }
 
 bool TablaHash::eliminar(int d){
