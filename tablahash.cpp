@@ -13,13 +13,16 @@ QString tabla[13];
 
 void TablaHash::insertar(int d){
     int indice = funcionHash(d, 13);
-    int iteracion=1, colision=0;
+
+    int iteracion=1, primero=indice;
+
+    /*en caso de haber una colision*/
     while(tabla[indice]!=NULL){
-        colision = dobleDispersion(d, iteracion);
-        int tmp = indice;
+        int colision = dobleDispersion(d, iteracion);
         indice=0;
-        indice=tmp+colision;
+        indice= primero+colision;
         iteracion++;
+        colision=0;
     }
 
     tabla[indice]=QString::number(d);

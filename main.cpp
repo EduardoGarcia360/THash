@@ -19,11 +19,6 @@ TablaHash* mitabla = (TablaHash*)malloc(sizeof(TablaHash));
 int main()
 {
 
-    int mod = (15%37);
-    QString tmp = QString::number(mod);
-    cout<< tmp.toStdString()<<endl;
-    cout<<"============"<<endl;
-
     mitabla->insertar(15);
     mitabla->insertar(26);
     mitabla->insertar(29);
@@ -31,7 +26,6 @@ int main()
     mitabla->insertar(18);
     mitabla->insertar(28);
     mitabla->mostrar();
-
 
     /*
     miarbol->insertar(10);
