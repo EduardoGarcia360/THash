@@ -11,11 +11,10 @@ struct NodoTabla{
 };
 
 struct TablaHash{
-    QString tabla [];
     int funcionHash(int llv, int M);
     int dobleDispersion(int llv, int i);
-    void definirTam(int tam);
     void insertar(int d);
+    void mostrar();
 };
 
 #endif // TABLAHASH_H
