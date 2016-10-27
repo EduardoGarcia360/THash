@@ -18,6 +18,9 @@ TablaHash* mitabla = (TablaHash*)malloc(sizeof(TablaHash));
 
 int main()
 {
+    double t = 6.0/13.0;
+    QString h = QString::number(t,'f',2);
+    cout<<h.toStdString()<<endl;
 
     mitabla->insertar(15);
     mitabla->insertar(26);
@@ -26,7 +29,18 @@ int main()
     mitabla->insertar(18);
     mitabla->insertar(28);
     mitabla->mostrar();
+    double algo = mitabla->porcentajeLlenado();
+    QString a = QString::number(algo, 'f', 2);
+    cout<<a.toStdString()<<endl;
+    mitabla->eliminar(28);
+    mitabla->mostrar();
 
+    algo = mitabla->porcentajeLlenado();
+    a = QString::number(algo, 'f', 2);
+    cout<<a.toStdString()<<endl;
+
+    mitabla->insertar(28);
+    mitabla->mostrar();
     /*
     miarbol->insertar(10);
     miarbol->insertar(5);

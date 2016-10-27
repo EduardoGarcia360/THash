@@ -10,28 +10,62 @@ using namespace std;
 
 /*tamaño ya definido en el proyecto*/
 QString tabla[13];
+double llenado;
 
 void TablaHash::insertar(int d){
     int indice = funcionHash(d, 13);
-
     int iteracion=1, primero=indice;
-
     /*en caso de haber una colision*/
-    while(tabla[indice]!=NULL){
+    while(tabla[indice]!=NULL || tabla[indice]=="#"){
         int colision = dobleDispersion(d, iteracion);
         indice=0;
         indice= primero+colision;
         iteracion++;
         colision=0;
     }
-
     tabla[indice]=QString::number(d);
+    llenado += 1.0;
+}
+
+bool TablaHash::buscar(int d){
+    bool encontro=false;
+    int indice = funcionHash(d, 13);
+    int iteracion=1, primero=indice;
+    while(tabla[indice]!=NULL){
+
+    }
+}
+
+bool TablaHash::eliminar(int d){
+    bool elimino=false;
+    int indice=funcionHash(d, 13);
+
+    QString elemento = QString::number(d);
+
+    if(tabla[indice] == elemento){
+        tabla[indice]="#";
+        llenado -= 1.0;
+        elimino=true;
+    }else{
+        int iteracion=1, primero=indice;
+        while(tabla[indice]!=elemento){
+            int colision = dobleDispersion(d, iteracion);
+            indice=0;
+            indice= primero + colision;
+            iteracion++;
+            colision=0;
+        }
+        tabla[indice]="#";
+        llenado -= 1.0;
+        elimino=true;
+    }
+    return elimino;
 }
 
 void TablaHash::mostrar(){
     cout<<"====================="<<endl;
     for(int i=0; i<13; i++){
-        if(tabla[i] == NULL){
+        if(tabla[i] == NULL || tabla[i] == "#"){
             QString tmp = "pos: "+QString::number(i)+" vacia.";
             cout<<tmp.toStdString()<<endl;
         }else{
@@ -40,6 +74,10 @@ void TablaHash::mostrar(){
         }
     }
     cout<<"====================="<<endl;
+}
+
+double TablaHash::porcentajeLlenado(){
+    return llenado/13.0;
 }
 
 int TablaHash::funcionHash(int llv, int M){
