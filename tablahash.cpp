@@ -71,6 +71,35 @@ bool TablaHash::eliminar(int d){
     return elimino;
 }
 
+void TablaHash::modificar(int d, int n){
+    int indice=funcionHash(d, 13);
+
+    QString elemento = QString::number(d);
+
+    if(tabla[indice] == elemento){
+        /*no hubo colision*/
+        tabla[indice]=QString::number(n);
+    }else{
+        /*si hubo colision*/
+        int iteracion=1, primero=indice;
+        while(tabla[indice]!=elemento){
+            int colision = dobleDispersion(d, iteracion);
+            indice=0;
+            indice=primero + colision;
+            if(indice>=13){
+                /*no encontro el numero, y sobrepaso el tamaño maximo*/
+                break;
+            }else{
+                iteracion++;
+                colision=0;
+            }
+        }
+        if(indice<13){
+            tabla[indice]=QString::number(n);
+        }
+    }
+}
+
 void TablaHash::mostrar(){
     cout<<"====================="<<endl;
     for(int i=0; i<13; i++){

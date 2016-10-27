@@ -11,6 +11,7 @@ struct TablaHash{
     void mostrar();
     bool buscar(int d);
     bool eliminar(int d);
+    void modificar(int d, int n);
 };
 
 #endif // TABLAHASH_H
