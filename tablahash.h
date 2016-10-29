@@ -5,6 +5,8 @@
 typedef struct TablaHash TablaHash;
 
 struct TablaHash{
+    //QString tabla[13];
+    double llenado;
     int funcionHash(int llv, int M);
     int dobleDispersion(int llv, int i);
     double porcentajeLlenado();
@@ -13,6 +15,6 @@ struct TablaHash{
     QString buscar(int d);
     bool eliminar(int d);
     void modificar(int d, int n);
+    void graficar();
 };
-
 #endif // TABLAHASH_H

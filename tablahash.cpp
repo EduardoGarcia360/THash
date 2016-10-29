@@ -4,7 +4,9 @@
 #include "string.h"
 #include "iostream"
 #include "sstream"
+#include "fstream"
 #include "QString"
+#include "cstdlib"
 
 using namespace std;
 
@@ -134,6 +136,40 @@ void TablaHash::mostrar(){
         }
     }
     cout<<"====================="<<endl;
+}
+
+void TablaHash::graficar(){
+    /*ver ejemplo en el manual de graphviz pag. 24*/
+
+    QString encabezado="digraph G{\n nodesep=.05;\n rankdir=LR;\n node[shape=record,width=.1,height=.1];\n";
+    QString cuerpo="";
+    QString relacion="", nodocero="node0 [label = \"";
+    int n=1;
+    for(int i=0; i<13; i++){
+        nodocero += "<f"+QString::number(i)+">"+QString::number(i)+" |";
+        if(tabla[i]!=NULL && tabla[i]!="#"){
+            QString dato = tabla[i];
+            cuerpo += "node"+QString::number(n)+"[label=\"{<n> "+dato+" | 5 | 6}\"];\n ";
+            int ant = n - 1;
+            relacion += "node0:f"+QString::number(ant)+" -> node"+QString::number(n)+":n;\n ";
+        }
+        n += 1;
+    }
+    nodocero += "\", height=2.5];\n node[width = 1.5];\n ";
+    /*=================================*/
+
+    QString contenido = encabezado + nodocero + cuerpo + relacion + "\n}";
+
+    ofstream escritura;
+    escritura.open("/home/eduardo/Descargas/tablahash.dot", ios::out);
+    if(escritura.is_open()){
+        cout<<"abrio el archivo"<<endl;
+        escritura<<contenido.toStdString()<<endl;
+    }else{
+        cout<<"nell prro"<<endl;
+    }
+    escritura.close();
+    system("dot -Tpng /home/eduardo/Descargas/tablahash.dot -o /home/eduardo/tablahash.png");
 }
 
 double TablaHash::porcentajeLlenado(){
