@@ -128,7 +128,7 @@ void TablaHash::mostrar(){
     cout<<"====================="<<endl;
     for(int i=0; i<13; i++){
         if(tabla[i] == NULL || tabla[i] == "#"){
-            QString tmp = "pos: "+QString::number(i)+" vacia.";
+            QString tmp = "pos: "+QString::number(i);
             cout<<tmp.toStdString()<<endl;
         }else{
             QString tmp = "pos: "+QString::number(i)+"->"+tabla[i];
@@ -139,14 +139,18 @@ void TablaHash::mostrar(){
 }
 
 void TablaHash::graficar(){
-    /*ver ejemplo en el manual de graphviz pag. 24*/
+    /*ver ejemplo en el manual de graphviz (dotguide.pdf) pag. 24*/
 
     QString encabezado="digraph G{\n nodesep=.05;\n rankdir=LR;\n node[shape=record,width=.1,height=.1];\n";
-    QString cuerpo="";
-    QString relacion="", nodocero="node0 [label = \"";
+    QString cuerpo="", relacion="", nodocero="node0 [label = \"";
     int n=1;
     for(int i=0; i<13; i++){
-        nodocero += "<f"+QString::number(i)+">"+QString::number(i)+" |";
+        if(i==12){
+            nodocero += "<f"+QString::number(i)+">"+QString::number(i);
+        }else{
+            nodocero += "<f"+QString::number(i)+">"+QString::number(i)+" |";
+        }
+
         if(tabla[i]!=NULL && tabla[i]!="#"){
             QString dato = tabla[i];
             cuerpo += "node"+QString::number(n)+"[label=\"{<n> "+dato+" | 5 | 6}\"];\n ";
